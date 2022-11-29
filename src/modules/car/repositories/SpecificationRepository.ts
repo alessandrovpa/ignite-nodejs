@@ -33,4 +33,4 @@ class SpecificationRepository implements ISpecificationRepository {
   }
 }
 
-export default SpecificationRepository;
+export { SpecificationRepository };

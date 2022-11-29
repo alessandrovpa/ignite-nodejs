@@ -1,5 +1,5 @@
-import Specification from "../models/Specification";
-import SpecificationRepository from "../repositories/SpecificationRepository";
+import Specification from "../../models/Specification";
+import { SpecificationRepository } from "../../repositories/SpecificationRepository";
 
 interface ICreateSpecificationService {
   name: string;
@@ -13,6 +13,9 @@ class CreateSpecificationService {
     name,
     description,
   }: ICreateSpecificationService): Specification {
+    if (!name || !description) {
+      throw new Error("Preencha todos os campos!");
+    }
     const verifySpecificationAlreadyExist =
       this.specificationRepository.findByName(name);
     if (verifySpecificationAlreadyExist) {
@@ -28,4 +31,4 @@ class CreateSpecificationService {
   }
 }
 
-export default CreateSpecificationService;
+export { CreateSpecificationService };

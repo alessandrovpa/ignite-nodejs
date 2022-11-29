@@ -1,5 +1,5 @@
-import Category from "../models/Category";
-import CategoryRepository from "../repositories/CategoryRepository";
+import Category from "../../models/Category";
+import { ICategoryRepository } from "../../repositories/ICategoryRepository";
 
 interface ICreateCategoryService {
   name: string;
@@ -7,9 +7,13 @@ interface ICreateCategoryService {
 }
 
 class CreateCategoryService {
-  constructor(private categoryRepository: CategoryRepository) {}
+  constructor(private categoryRepository: ICategoryRepository) {}
 
   public execute({ name, description }: ICreateCategoryService): Category {
+    if (!name || !description) {
+      throw new Error("Preencha todos os campos!");
+    }
+
     const verifyNameAlreadyExist = this.categoryRepository.findByName(name);
     if (verifyNameAlreadyExist) {
       throw new Error("Categoria já cadastrada!");
@@ -21,4 +25,4 @@ class CreateCategoryService {
   }
 }
 
-export default CreateCategoryService;
+export { CreateCategoryService };

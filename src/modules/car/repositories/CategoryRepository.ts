@@ -1,5 +1,5 @@
 import Category from "../models/Category";
-import ICategoryRepository, { ICreateCategoryDTO } from "./ICategoryRepository";
+import { ICategoryRepository, ICreateCategoryDTO } from "./ICategoryRepository";
 
 class CategoryRepository implements ICategoryRepository {
   private categories: Category[];
@@ -31,4 +31,4 @@ class CategoryRepository implements ICategoryRepository {
   }
 }
 
-export default CategoryRepository;
+export { CategoryRepository };

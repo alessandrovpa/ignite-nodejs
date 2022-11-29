@@ -1,6 +1,6 @@
 import Category from "../models/Category";
 
-export interface ICreateCategoryDTO {
+interface ICreateCategoryDTO {
   name: string;
   description: string;
 }
@@ -11,4 +11,4 @@ interface ICategoryRepository {
   findByName(name: string): Category;
 }
 
-export default ICategoryRepository;
+export { ICategoryRepository, ICreateCategoryDTO };
