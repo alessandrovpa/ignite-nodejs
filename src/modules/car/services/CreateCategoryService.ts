@@ -1,4 +1,4 @@
-import { Category } from "../models/Category";
+import Category from "../models/Category";
 import CategoryRepository from "../repositories/CategoryRepository";
 
 interface ICreateCategoryService {
@@ -10,8 +10,8 @@ class CreateCategoryService {
   constructor(private categoryRepository: CategoryRepository) {}
 
   public execute({ name, description }: ICreateCategoryService): Category {
-    const verifyNameAlreadyUsed = this.categoryRepository.findByName(name);
-    if (verifyNameAlreadyUsed) {
+    const verifyNameAlreadyExist = this.categoryRepository.findByName(name);
+    if (verifyNameAlreadyExist) {
       throw new Error("Categoria já cadastrada!");
     }
 
