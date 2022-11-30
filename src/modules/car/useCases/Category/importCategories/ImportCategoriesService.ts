@@ -11,7 +11,7 @@ interface ICategory {
 interface IResponseDTO {
   categories: ICategory[];
   newCategories: number;
-  repeatedCategories: number;
+  repeatedOrEmptyCategories: number;
 }
 
 class ImportCategoriesService {
@@ -44,9 +44,10 @@ class ImportCategoriesService {
   async execute(file: Express.Multer.File): Promise<IResponseDTO> {
     const categories = await this.loadCategories(file);
 
-    const filteredAvaiableCategories = categories.filter(
-      (category) => !this.categoryRepository.findByName(category.name)
-    );
+    const filteredAvaiableCategories = categories
+      .filter((category) => !this.categoryRepository.findByName(category.name))
+      .filter((category) => !!category.name)
+      .filter((category) => !!category.description);
 
     filteredAvaiableCategories.map((category) => {
       const { name, description } = category;
@@ -55,13 +56,13 @@ class ImportCategoriesService {
     });
 
     const newCategories = filteredAvaiableCategories.length;
-    const repeatedCategories =
+    const repeatedOrEmptyCategories =
       categories.length - filteredAvaiableCategories.length;
 
     return {
       categories: filteredAvaiableCategories,
       newCategories,
-      repeatedCategories,
+      repeatedOrEmptyCategories,
     };
   }
 }
