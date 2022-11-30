@@ -12,6 +12,7 @@
   },
   "plugins": ["@typescript-eslint", "eslint-plugin-import-helpers", "prettier"],
   "rules": {
+    "array-callback-return": "off",
     "prettier/prettier": "error",
     "camelcase": "off",
     "import/no-unresolved": "error",

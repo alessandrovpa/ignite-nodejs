@@ -1,5 +1,5 @@
-import Specification from "../../models/Specification";
-import { SpecificationRepository } from "../../repositories/SpecificationRepository";
+import Specification from "../../../models/Specification";
+import { ISpecificationRepository } from "../../../repositories/ISpecificationRepository";
 
 interface ICreateSpecificationService {
   name: string;
@@ -7,7 +7,7 @@ interface ICreateSpecificationService {
 }
 
 class CreateSpecificationService {
-  constructor(private specificationRepository: SpecificationRepository) {}
+  constructor(private specificationRepository: ISpecificationRepository) {}
 
   public execute({
     name,
@@ -16,9 +16,8 @@ class CreateSpecificationService {
     if (!name || !description) {
       throw new Error("Preencha todos os campos!");
     }
-    const verifySpecificationAlreadyExist =
-      this.specificationRepository.findByName(name);
-    if (verifySpecificationAlreadyExist) {
+    const existeSpecification = this.specificationRepository.findByName(name);
+    if (existeSpecification) {
       throw new Error("Especificação já cadastrada!");
     }
 

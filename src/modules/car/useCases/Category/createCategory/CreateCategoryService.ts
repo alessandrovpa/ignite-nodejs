@@ -1,5 +1,5 @@
-import Category from "../../models/Category";
-import { ICategoryRepository } from "../../repositories/ICategoryRepository";
+import Category from "../../../models/Category";
+import { ICategoryRepository } from "../../../repositories/ICategoryRepository";
 
 interface ICreateCategoryService {
   name: string;
@@ -14,8 +14,8 @@ class CreateCategoryService {
       throw new Error("Preencha todos os campos!");
     }
 
-    const verifyNameAlreadyExist = this.categoryRepository.findByName(name);
-    if (verifyNameAlreadyExist) {
+    const existCategory = this.categoryRepository.findByName(name);
+    if (existCategory) {
       throw new Error("Categoria já cadastrada!");
     }
 

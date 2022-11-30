@@ -1,3 +1,6 @@
+!.gitkeep
 node_modules
 .vscode
 dist
+tmp/*
+!tmp/.gitkeep
