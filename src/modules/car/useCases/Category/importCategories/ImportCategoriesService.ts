@@ -47,9 +47,9 @@ class ImportCategoriesService {
     const categories = await this.loadCategories(file);
 
     const filteredAvaiableCategories = categories
-      .filter((category) => !this.categoryRepository.findByName(category.name))
+      .filter((category) => !!category.description)
       .filter((category) => !!category.name)
-      .filter((category) => !!category.description);
+      .filter((category) => !this.categoryRepository.findByName(category.name));
 
     filteredAvaiableCategories.map((category) => {
       const { name, description } = category;

@@ -12,20 +12,27 @@
     "schemas":{
       "Category":{
         "type": "object",
+        "required":["name", "description"],
         "properties":{
           "id": {
             "type":"string",
-            "format": "uuid"
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Identificador único da categoria"
           },
           "name":{
-            "type":"string"
+            "type":"string",
+            "description": "Nome da categoria"
           },
           "description":{
-            "type": "string"
+            "type": "string",
+            "description": "Descrição detalhada da categoria"
           },
           "created_at":{
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "readOnly": true,
+            "description": "Data e hora do registro da categoria no banco de dados"
           }
         },
         "example": {
@@ -37,20 +44,27 @@
       },
       "Specification":{
         "type": "object",
+        "required": ["name", "description"],
         "properties":{
           "id": {
             "type":"string",
-            "format": "uuid"
+            "format": "uuid",
+            "readOnly": true,
+            "description": "Identificador único da especificação"
           },
           "name":{
-            "type":"string"
+            "type":"string",
+            "description": "Nome da especificação"
           },
           "description":{
-            "type": "string"
+            "type": "string",
+            "description": "Descrição detalhada da especificação"
           },
           "created_at":{
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "readOnly": true,
+            "description": "Data e hora do registro da especificação no banco de dados"
           }
         },
         "example": {
@@ -77,7 +91,7 @@
   "paths":{
     "/category":{
       "get": {
-        "tags": ["Categorias"],
+        "tags": ["Categoria"],
         "summary": "Rota para listar categorias",
         "description" : "Rota para listar todas as categorias cadastradas",
         "responses": {
@@ -97,7 +111,7 @@
         }
       },
       "post":{
-        "tags": ["Categorias"],
+        "tags": ["Categoria"],
         "summary": "Rota para criação de categoria",
         "description": "Rota para criar uma nova categoria",
         "requestBody":{
@@ -105,20 +119,11 @@
           "content":{
             "application/json":{
               "schema": {
-                "type": "object",
-                "required": ["name", "description"],
-                "properties":{
-                  "name":{
-                    "type":"string"
-                  },
-                  "description":{
-                    "type":"string"
-                  }
-                },
-                "example":{
-                  "name":"SUV",
-                  "description":"Utilitário esportivo"
-                }
+                "$ref": "#/components/schemas/Category"
+              },
+              "example":{
+                "name": "SUV",
+                "description": "Utilitário esportivo"
               }
             }
           }
@@ -149,7 +154,7 @@
     },
     "/specification":{
       "get":{
-        "tags": ["Specification"],
+        "tags": ["Specificação"],
         "summary": "Rota para listar especificações",
         "description": "Rota para listar todas as especificações cadastradas",
         "responses":{
@@ -169,7 +174,7 @@
         }
       },
       "post":{
-        "tags":["Specification"],
+        "tags":["Specificação"],
         "summary":"Rota para criação de especificação",
         "description": "Rota para criar uma nova especificação",
         "requestBody":{
@@ -177,20 +182,11 @@
           "content":{
             "application/json":{
               "schema":{
-                "type":"object",
-                "required": ["name", "description"],
-                "properties":{
-                  "name":{
-                    "type": "string"
-                  },
-                  "description":{
-                    "type":"string"
-                  }
-                },
-                "example":{
-                  "name": "Câmbio automático",
-                  "description": "Este carro possui o câmbio automático"
-                }
+                "$ref":"#/components/schemas/Specification"
+              },
+              "example":{
+                "name": "Câmbio automático",
+                "description": "Este carro possui o câmbio automático"
               }
             }
           }
