@@ -6,7 +6,7 @@ class ListCategoriesController {
   constructor(private listCategoriesService: ListCategoriesService) {}
   handle(req: Request, res: Response): Response {
     const categories = this.listCategoriesService.execute();
-    return res.status(200).json({ categories });
+    return res.status(200).json(categories);
   }
 }
 

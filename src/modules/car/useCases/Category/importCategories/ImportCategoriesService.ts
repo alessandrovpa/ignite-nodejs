@@ -10,8 +10,8 @@ interface ICategory {
 
 interface IResponseDTO {
   categories: ICategory[];
-  newCategories: number;
-  repeatedOrEmptyCategories: number;
+  newCategoriesCount: number;
+  repeatedOrEmptyCategoriesCount: number;
 }
 
 class ImportCategoriesService {
@@ -33,9 +33,11 @@ class ImportCategoriesService {
           categories.push({ name, description });
         })
         .on("end", () => {
+          fs.promises.unlink(file.path);
           resolve(categories);
         })
         .on("error", (err) => {
+          fs.promises.unlink(file.path);
           reject(err);
         });
     });
@@ -55,14 +57,14 @@ class ImportCategoriesService {
       this.categoryRepository.create({ name, description });
     });
 
-    const newCategories = filteredAvaiableCategories.length;
-    const repeatedOrEmptyCategories =
+    const newCategoriesCount = filteredAvaiableCategories.length;
+    const repeatedOrEmptyCategoriesCount =
       categories.length - filteredAvaiableCategories.length;
 
     return {
       categories: filteredAvaiableCategories,
-      newCategories,
-      repeatedOrEmptyCategories,
+      newCategoriesCount,
+      repeatedOrEmptyCategoriesCount,
     };
   }
 }

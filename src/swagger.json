@@ -1,0 +1,223 @@
+{
+  "openapi": "3.0.0",
+  "info":{
+    "title": "Locação de carros API DOCs",
+    "description": "Essa é a documentação da API de locação de carros desenvolvida com o módulo de NodeJS do Ignite",
+    "version": "1.0.0",
+    "contact":{
+      "email": "alessandrovictor159@gmail.com"
+    }
+  },
+  "components":{
+    "schemas":{
+      "Category":{
+        "type": "object",
+        "properties":{
+          "id": {
+            "type":"string",
+            "format": "uuid"
+          },
+          "name":{
+            "type":"string"
+          },
+          "description":{
+            "type": "string"
+          },
+          "created_at":{
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "example": {
+          "id": "9d34335b-f5c8-40a1-ae4a-58922898efb8",
+          "name": "SUV",
+          "description": "Utilitário esportivo",
+          "created_at": "2022-11-30T20:07:17.991Z"
+        }
+      },
+      "Specification":{
+        "type": "object",
+        "properties":{
+          "id": {
+            "type":"string",
+            "format": "uuid"
+          },
+          "name":{
+            "type":"string"
+          },
+          "description":{
+            "type": "string"
+          },
+          "created_at":{
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "example": {
+          "id": "86006473-a61f-4ac5-a5ed-2fe638a8e2f7",
+          "name": "Câmbio automático",
+          "description": "Este carro possui o câmbio automático",
+          "created_at": "2022-11-30T17:19:15.021Z"
+        }
+      },
+      "Error":{
+        "type":"object",
+        "properties":{
+          "error": {
+            "type": "string",
+            "description": "Mensagem descrevendo o error"
+          }
+        },
+        "example":{
+          "error": "Preencha todos os campos!"
+        }
+      }
+    }
+  },
+  "paths":{
+    "/category":{
+      "get": {
+        "tags": ["Categorias"],
+        "summary": "Rota para listar categorias",
+        "description" : "Rota para listar todas as categorias cadastradas",
+        "responses": {
+          "200": {
+            "description": "Lista de categorias",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type": "array",
+                  "items":{
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "tags": ["Categorias"],
+        "summary": "Rota para criação de categoria",
+        "description": "Rota para criar uma nova categoria",
+        "requestBody":{
+          "description": "Categoria a ser adicionada",
+          "content":{
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "required": ["name", "description"],
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "description":{
+                    "type":"string"
+                  }
+                },
+                "example":{
+                  "name":"SUV",
+                  "description":"Utilitário esportivo"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description": "Created",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref": "#/components/schemas/Category"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Error",
+            "content":{
+              "application/json": {
+                "schema":{
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/specification":{
+      "get":{
+        "tags": ["Specification"],
+        "summary": "Rota para listar especificações",
+        "description": "Rota para listar todas as especificações cadastradas",
+        "responses":{
+          "200":{
+            "description": "Lista de especificações",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"array",
+                  "items":{
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post":{
+        "tags":["Specification"],
+        "summary":"Rota para criação de especificação",
+        "description": "Rota para criar uma nova especificação",
+        "requestBody":{
+          "description":"Especificação a ser adicionada",
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "required": ["name", "description"],
+                "properties":{
+                  "name":{
+                    "type": "string"
+                  },
+                  "description":{
+                    "type":"string"
+                  }
+                },
+                "example":{
+                  "name": "Câmbio automático",
+                  "description": "Este carro possui o câmbio automático"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description": "Created",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/Specification"
+                }
+              }
+            }
+          },
+          "400":{
+            "description": "Error",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "$ref":"#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
