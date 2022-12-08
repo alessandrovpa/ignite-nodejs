@@ -5,11 +5,11 @@ import { CreateCategoryService } from "./CreateCategoryService";
 class CreateCategoryController {
   constructor(private createCategoryService: CreateCategoryService) {}
 
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
 
     try {
-      const category = this.createCategoryService.execute({
+      const category = await this.createCategoryService.execute({
         name,
         description,
       });

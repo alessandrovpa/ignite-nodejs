@@ -1,3 +1,6 @@
+import { Repository } from "typeorm";
+
+import { appDataSource } from "../../../../database";
 import Category from "../../models/Category";
 import {
   ICategoryRepository,
@@ -5,39 +8,32 @@ import {
 } from "../ICategoryRepository";
 
 class CategoryRepository implements ICategoryRepository {
-  private categories: Category[];
+  private repository: Repository<Category>;
 
-  private static INSTANCE: CategoryRepository;
-
-  private constructor() {
-    this.categories = [];
+  constructor() {
+    this.repository = appDataSource.getRepository(Category);
   }
 
-  public static getInstance(): CategoryRepository {
-    if (!CategoryRepository.INSTANCE) {
-      CategoryRepository.INSTANCE = new CategoryRepository();
-    }
-    return CategoryRepository.INSTANCE;
-  }
-
-  create({ name, description }: ICreateCategoryDTO): Category {
-    const category = new Category();
-    Object.assign(category, {
+  async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
+    const category = this.repository.create({
       name,
       description,
     });
-
-    this.categories.push(category);
+    await this.repository.save(category);
 
     return category;
   }
 
-  list(): Category[] {
-    return this.categories;
+  async list(): Promise<Category[]> {
+    const categories = await this.repository.find();
+    return categories;
   }
 
-  findByName(name: string): Category {
-    const category = this.categories.find((category) => category.name === name);
+  async findByName(name: string): Promise<Category> {
+    const category = await this.repository
+      .createQueryBuilder()
+      .where("LOWER(name) = LOWER(:name)", { name })
+      .getOne();
 
     return category;
   }

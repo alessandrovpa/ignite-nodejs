@@ -9,17 +9,23 @@ interface ICreateCategoryService {
 class CreateCategoryService {
   constructor(private categoryRepository: ICategoryRepository) {}
 
-  public execute({ name, description }: ICreateCategoryService): Category {
+  public async execute({
+    name,
+    description,
+  }: ICreateCategoryService): Promise<Category> {
     if (!name || !description) {
       throw new Error("Preencha todos os campos!");
     }
 
-    const existCategory = this.categoryRepository.findByName(name);
+    const existCategory = await this.categoryRepository.findByName(name);
     if (existCategory) {
       throw new Error("Categoria já cadastrada!");
     }
 
-    const category = this.categoryRepository.create({ name, description });
+    const category = await this.categoryRepository.create({
+      name,
+      description,
+    });
 
     return category;
   }

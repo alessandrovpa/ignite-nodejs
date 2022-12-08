@@ -6,7 +6,7 @@ import { ImportCategoriesService } from "./importCategories/ImportCategoriesServ
 import { ListCategoriesController } from "./listCategories/ListCategoriesController";
 import { ListCategoriesService } from "./listCategories/ListCategoriesService";
 
-const categoryRepository = CategoryRepository.getInstance();
+const categoryRepository = new CategoryRepository();
 
 // Create category
 
