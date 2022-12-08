@@ -4,11 +4,11 @@ import { CreateSpecificationService } from "./CreateSpecificationService";
 
 class CreateSpecificationController {
   constructor(private createSpecificationService: CreateSpecificationService) {}
-  handle(req: Request, res: Response): Response {
+  async handle(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
 
     try {
-      const specification = this.createSpecificationService.execute({
+      const specification = await this.createSpecificationService.execute({
         name,
         description,
       });

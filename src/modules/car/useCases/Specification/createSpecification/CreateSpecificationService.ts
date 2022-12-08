@@ -9,19 +9,21 @@ interface ICreateSpecificationService {
 class CreateSpecificationService {
   constructor(private specificationRepository: ISpecificationRepository) {}
 
-  public execute({
+  public async execute({
     name,
     description,
-  }: ICreateSpecificationService): Specification {
+  }: ICreateSpecificationService): Promise<Specification> {
     if (!name || !description) {
       throw new Error("Preencha todos os campos!");
     }
-    const existeSpecification = this.specificationRepository.findByName(name);
+    const existeSpecification = await this.specificationRepository.findByName(
+      name
+    );
     if (existeSpecification) {
       throw new Error("Especificação já cadastrada!");
     }
 
-    const specification = this.specificationRepository.create({
+    const specification = await this.specificationRepository.create({
       name,
       description,
     });

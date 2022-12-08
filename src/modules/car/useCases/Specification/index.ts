@@ -4,7 +4,7 @@ import { CreateSpecificationService } from "./createSpecification/CreateSpecific
 import { ListSpecificationController } from "./listSpecifications/ListSpecificationsController";
 import { ListSpecificationService } from "./listSpecifications/ListSpecificationsService";
 
-const specificationRepository = SpecificationRepository.getInstance();
+const specificationRepository = new SpecificationRepository();
 
 // Create specification
 
