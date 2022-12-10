@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 @Entity("category")
 class Category {
   @PrimaryColumn()
-  id?: string;
+  id: string;
 
   @Column()
   name: string;
@@ -19,17 +19,14 @@ class Category {
   description: string;
 
   @CreateDateColumn()
-  created_at?: Date;
+  created_at: Date;
 
   @UpdateDateColumn()
-  updated_at?: Date;
+  updated_at: Date;
 
   constructor() {
     if (!this.id) {
       this.id = uuidv4();
-    }
-    if (!this.created_at) {
-      this.created_at = new Date();
     }
   }
 }

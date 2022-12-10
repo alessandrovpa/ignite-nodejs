@@ -10,7 +10,7 @@ export class CreateSpecificationTable1670530280977
         columns: [
           {
             name: "id",
-            type: "uuid",
+            type: "varchar",
             generationStrategy: "uuid",
             isPrimary: true,
             isUnique: true,
@@ -30,11 +30,13 @@ export class CreateSpecificationTable1670530280977
             name: "created_at",
             type: "timestamp",
             default: "now()",
+            isNullable: false,
           },
           {
             name: "updated_at",
             type: "timestamp",
             default: "now()",
+            isNullable: false,
           },
         ],
       })

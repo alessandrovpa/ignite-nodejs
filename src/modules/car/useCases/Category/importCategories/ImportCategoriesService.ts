@@ -48,32 +48,31 @@ class ImportCategoriesService {
     const newCategories: Category[] = [];
     const categories = await this.loadCategories(file);
 
-    const filteredAvaiableCategories = categories
-      .filter((category) => !!category.description)
-      .filter((category) => !!category.name)
-      .filter(
-        async (category) => !this.categoryRepository.findByName(category.name)
-      );
-
     // eslint-disable-next-line no-restricted-syntax
-    for (const category of filteredAvaiableCategories) {
+    for (const category of categories) {
       const { name, description } = category;
-      // eslint-disable-next-line no-await-in-loop
-      const newCategory = await this.categoryRepository.create({
-        name,
-        description,
-      });
-      console.log(newCategory);
-      newCategories.push(newCategory);
+      if (name && description) {
+        const verifyCategoryAlreadiExist =
+          // eslint-disable-next-line no-await-in-loop
+          await this.categoryRepository.findByName(name);
+        if (!verifyCategoryAlreadiExist) {
+          const newCategory = this.categoryRepository.create({
+            name,
+            description,
+          });
+          newCategories.push(newCategory);
+        }
+      }
     }
 
-    const newCategoriesCount = newCategories.length;
+    await this.categoryRepository.saveMany(newCategories);
+
     const repeatedOrEmptyCategoriesCount =
-      categories.length - filteredAvaiableCategories.length;
+      categories.length - newCategories.length;
 
     return {
       categories: newCategories,
-      newCategoriesCount,
+      newCategoriesCount: newCategories.length,
       repeatedOrEmptyCategoriesCount,
     };
   }

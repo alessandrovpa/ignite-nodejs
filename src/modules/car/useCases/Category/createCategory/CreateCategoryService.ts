@@ -22,10 +22,11 @@ class CreateCategoryService {
       throw new Error("Categoria já cadastrada!");
     }
 
-    const category = await this.categoryRepository.create({
+    const category = this.categoryRepository.create({
       name,
       description,
     });
+    await this.categoryRepository.save(category);
 
     return category;
   }

@@ -8,7 +8,7 @@ export class CreateCategoryTable1670433125106 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "uuid",
+            type: "varchar",
             generationStrategy: "uuid",
             isPrimary: true,
             isUnique: true,
@@ -22,17 +22,19 @@ export class CreateCategoryTable1670433125106 implements MigrationInterface {
           {
             name: "description",
             type: "varchar",
-            isNullable: null,
+            isNullable: false,
           },
           {
             name: "created_at",
             type: "timestamp",
             default: "now()",
+            isNullable: false,
           },
           {
             name: "updated_at",
             type: "timestamp",
             default: "now()",
+            isNullable: false,
           },
         ],
       })
