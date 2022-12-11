@@ -152,6 +152,55 @@
         }
       }
     },
+    "/category/import":{
+      "post":{
+        "tags": ["Categoria"],
+        "summary": "Rota para importar categorias",
+        "description": "Rota para importar uma lista de categorias de um arquivo CSV",
+        "requestBody":{
+          "description": "Arquivo com a lista de categorias a ser adicionada",
+          "content":{
+            "multipart/form-data":{
+              "schema": {
+                "type": "object",
+                "properties":{
+                  "file":{
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description": "Created",
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type": "object",
+                  "properties":{
+                    "categories": {
+                      "type":"array",
+                      "items":{
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    },
+                    "newCategoriesCount":{
+                      "type": "integer"
+                    },
+                    "repeatedOrEmptyCategoriesCount":{
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/specification":{
       "get":{
         "tags": ["Specificação"],
