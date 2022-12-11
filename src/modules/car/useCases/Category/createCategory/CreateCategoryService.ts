@@ -1,3 +1,5 @@
+import { inject, injectable } from "tsyringe";
+
 import Category from "../../../models/Category";
 import { ICategoryRepository } from "../../../repositories/ICategoryRepository";
 
@@ -6,8 +8,12 @@ interface ICreateCategoryService {
   description: string;
 }
 
+@injectable()
 class CreateCategoryService {
-  constructor(private categoryRepository: ICategoryRepository) {}
+  constructor(
+    @inject("CategoryRepository")
+    private categoryRepository: ICategoryRepository
+  ) {}
 
   public async execute({
     name,

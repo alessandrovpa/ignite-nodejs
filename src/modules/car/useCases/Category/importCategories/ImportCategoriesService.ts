@@ -1,5 +1,6 @@
 import { parse } from "csv-parse";
 import * as fs from "fs";
+import { inject, injectable } from "tsyringe";
 
 import Category from "../../../models/Category";
 import { ICategoryRepository } from "../../../repositories/ICategoryRepository";
@@ -15,8 +16,12 @@ interface IResponseDTO {
   repeatedOrEmptyCategoriesCount: number;
 }
 
+@injectable()
 class ImportCategoriesService {
-  constructor(private categoryRepository: ICategoryRepository) {}
+  constructor(
+    @inject("CategoryRepository")
+    private categoryRepository: ICategoryRepository
+  ) {}
 
   private loadCategories(file: Express.Multer.File): Promise<ICategory[]> {
     return new Promise((resolve, reject) => {
