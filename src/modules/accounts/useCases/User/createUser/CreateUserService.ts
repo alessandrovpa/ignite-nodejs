@@ -1,3 +1,4 @@
+import { hash } from "bcrypt";
 import { inject, injectable } from "tsyringe";
 
 import { ICreateUserDTO } from "../../../dtos/ICreateUserDTO";
@@ -30,10 +31,12 @@ class CreateUserService {
     if (verifyDriverLicenceAlreadyExist)
       throw new Error("Licença de motorista já cadastrada!");
 
+    const hashedPassword = await hash(password, 8);
+
     const user = await this.userRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
       driverLicence,
     });
 
