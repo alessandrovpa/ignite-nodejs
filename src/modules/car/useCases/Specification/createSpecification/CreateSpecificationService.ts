@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import AppError from "../../../../../errors/AppError";
 import Specification from "../../../models/Specification";
 import { ISpecificationRepository } from "../../../repositories/ISpecificationRepository";
 
@@ -20,13 +21,13 @@ class CreateSpecificationService {
     description,
   }: ICreateSpecificationService): Promise<Specification> {
     if (!name || !description) {
-      throw new Error("Preencha todos os campos!");
+      throw new AppError("Preencha todos os campos!");
     }
     const existeSpecification = await this.specificationRepository.findByName(
       name
     );
     if (existeSpecification) {
-      throw new Error("Especificação já cadastrada!");
+      throw new AppError("Especificação já cadastrada!");
     }
 
     const specification = await this.specificationRepository.create({

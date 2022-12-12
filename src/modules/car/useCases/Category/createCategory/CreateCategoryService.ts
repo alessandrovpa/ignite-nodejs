@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 
+import AppError from "../../../../../errors/AppError";
 import Category from "../../../models/Category";
 import { ICategoryRepository } from "../../../repositories/ICategoryRepository";
 
@@ -20,12 +21,12 @@ class CreateCategoryService {
     description,
   }: ICreateCategoryService): Promise<Category> {
     if (!name || !description) {
-      throw new Error("Preencha todos os campos!");
+      throw new AppError("Preencha todos os campos!");
     }
 
     const existCategory = await this.categoryRepository.findByName(name);
     if (existCategory) {
-      throw new Error("Categoria já cadastrada!");
+      throw new AppError("Categoria já cadastrada!");
     }
 
     const category = this.categoryRepository.create({

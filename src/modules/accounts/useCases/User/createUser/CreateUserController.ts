@@ -5,20 +5,18 @@ import { CreateUserService } from "./CreateUserService";
 
 class CreateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { name, username, email, password, driverLicence } = req.body;
+    const { name, email, password, driverLicence } = req.body;
+
     const createUserService = container.resolve(CreateUserService);
-    try {
-      const user = await createUserService.execute({
-        name,
-        username,
-        email,
-        password,
-        driverLicence,
-      });
-      return res.status(201).json(user);
-    } catch (error) {
-      return res.status(400).json({ error: error.message });
-    }
+
+    const user = await createUserService.execute({
+      name,
+      email,
+      password,
+      driverLicence,
+    });
+
+    return res.status(201).json(user);
   }
 }
 
