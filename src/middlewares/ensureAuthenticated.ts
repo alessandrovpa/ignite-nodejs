@@ -24,8 +24,13 @@ export async function ensureAuthenticated(
     const userRepository = container.resolve<IUserRepository>("UserRepository");
     const verifyUser = await userRepository.findById(userId);
     if (!verifyUser) throw new AppError("Usuário não encontrado!");
+    Object.assign(req, {
+      user: {
+        id: userId,
+      },
+    });
   } catch (error) {
-    throw new AppError("Permissão negada!", 401);
+    throw new AppError(`Permissão negada!`, 401);
   }
 
   next();

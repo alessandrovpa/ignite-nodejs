@@ -2,6 +2,7 @@ import { parse } from "csv-parse";
 import * as fs from "fs";
 import { inject, injectable } from "tsyringe";
 
+import AppError from "../../../../../errors/AppError";
 import Category from "../../../models/Category";
 import { ICategoryRepository } from "../../../repositories/ICategoryRepository";
 
@@ -51,6 +52,12 @@ class ImportCategoriesService {
 
   async execute(file: Express.Multer.File): Promise<IResponseDTO> {
     const newCategories: Category[] = [];
+
+    if (file.mimetype !== "text/csv") {
+      fs.promises.unlink(file.path);
+      throw new AppError("Formato inválido, apenas CSV");
+    }
+
     const categories = await this.loadCategories(file);
 
     // eslint-disable-next-line no-restricted-syntax

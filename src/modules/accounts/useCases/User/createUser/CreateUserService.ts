@@ -34,12 +34,14 @@ class CreateUserService {
 
     const hashedPassword = await hash(password, 8);
 
-    const user = await this.userRepository.create({
+    const user = this.userRepository.create({
       name,
       email,
       password: hashedPassword,
       driverLicence,
     });
+
+    await this.userRepository.save(user);
 
     return user;
   }

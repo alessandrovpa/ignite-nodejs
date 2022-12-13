@@ -4,6 +4,7 @@ import {
   Entity,
   PrimaryColumn,
   UpdateDateColumn,
+  VirtualColumn,
 } from "typeorm";
 import { v4 as uuidv4 } from "uuid";
 
@@ -26,6 +27,9 @@ class User {
 
   @Column({ name: "is_admin" })
   isAdmin: boolean;
+
+  @Column()
+  avatar: string;
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
