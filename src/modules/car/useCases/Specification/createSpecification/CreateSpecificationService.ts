@@ -1,8 +1,8 @@
-import { inject, injectable } from "tsyringe";
+import AppError from '@errors/AppError';
+import { inject, injectable } from 'tsyringe';
 
-import AppError from "../../../../../errors/AppError";
-import Specification from "../../../models/Specification";
-import { ISpecificationRepository } from "../../../repositories/ISpecificationRepository";
+import Specification from '../../../models/Specification';
+import { ISpecificationRepository } from '../../../repositories/ISpecificationRepository';
 
 interface ICreateSpecificationService {
   name: string;
@@ -12,7 +12,7 @@ interface ICreateSpecificationService {
 @injectable()
 class CreateSpecificationService {
   constructor(
-    @inject("SpecificationRepository")
+    @inject('SpecificationRepository')
     private specificationRepository: ISpecificationRepository
   ) {}
 
@@ -21,13 +21,13 @@ class CreateSpecificationService {
     description,
   }: ICreateSpecificationService): Promise<Specification> {
     if (!name || !description) {
-      throw new AppError("Preencha todos os campos!");
+      throw new AppError('Preencha todos os campos!');
     }
     const existeSpecification = await this.specificationRepository.findByName(
       name
     );
     if (existeSpecification) {
-      throw new AppError("Especificação já cadastrada!");
+      throw new AppError('Especificação já cadastrada!');
     }
 
     const specification = await this.specificationRepository.create({

@@ -1,12 +1,12 @@
-import { inject, injectable } from "tsyringe";
+import { inject, injectable } from 'tsyringe';
 
-import Specification from "../../../models/Specification";
-import { ISpecificationRepository } from "../../../repositories/ISpecificationRepository";
+import Specification from '../../../models/Specification';
+import { ISpecificationRepository } from '../../../repositories/ISpecificationRepository';
 
 @injectable()
 class ListSpecificationService {
   constructor(
-    @inject("SpecificationRepository")
+    @inject('SpecificationRepository')
     private specificationRepository: ISpecificationRepository
   ) {}
 

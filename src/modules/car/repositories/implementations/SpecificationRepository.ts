@@ -1,11 +1,11 @@
-import { Repository } from "typeorm";
+import { Repository } from 'typeorm';
 
-import { appDataSource } from "../../../../database";
-import Specification from "../../models/Specification";
+import { appDataSource } from '../../../../database';
+import Specification from '../../models/Specification';
 import {
   ISpecificationRepository,
   ICreateSpecificationDTO,
-} from "../ISpecificationRepository";
+} from '../ISpecificationRepository';
 
 class SpecificationRepository implements ISpecificationRepository {
   private repository: Repository<Specification>;
@@ -33,7 +33,7 @@ class SpecificationRepository implements ISpecificationRepository {
   async findByName(name: string): Promise<Specification> {
     const specification = await this.repository
       .createQueryBuilder()
-      .where("LOWER(name) = LOWER(:name)", { name })
+      .where('LOWER(name) = LOWER(:name)', { name })
       .getOne();
 
     return specification;

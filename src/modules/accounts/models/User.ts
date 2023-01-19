@@ -4,11 +4,10 @@ import {
   Entity,
   PrimaryColumn,
   UpdateDateColumn,
-  VirtualColumn,
-} from "typeorm";
-import { v4 as uuidv4 } from "uuid";
+} from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
-@Entity("user")
+@Entity('user')
 class User {
   @PrimaryColumn()
   id: string;
@@ -22,19 +21,19 @@ class User {
   @Column()
   password: string;
 
-  @Column({ name: "driver_licence" })
+  @Column({ name: 'driver_licence' })
   driverLicence: string;
 
-  @Column({ name: "is_admin" })
+  @Column({ name: 'is_admin' })
   isAdmin: boolean;
 
   @Column()
   avatar: string;
 
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at" })
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   constructor() {

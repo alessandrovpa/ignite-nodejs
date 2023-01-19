@@ -4,10 +4,10 @@ import {
   Entity,
   PrimaryColumn,
   UpdateDateColumn,
-} from "typeorm";
-import { v4 as uuidv4 } from "uuid";
+} from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
-@Entity("specification")
+@Entity('specification')
 class Specification {
   @PrimaryColumn()
   id: string;
@@ -18,10 +18,10 @@ class Specification {
   @Column()
   description: string;
 
-  @CreateDateColumn({ name: "created_at" })
+  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: "updated_at" })
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
   constructor() {

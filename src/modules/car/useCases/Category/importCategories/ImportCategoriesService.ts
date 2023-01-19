@@ -1,10 +1,10 @@
-import { parse } from "csv-parse";
-import * as fs from "fs";
-import { inject, injectable } from "tsyringe";
+import { parse } from 'csv-parse';
+import * as fs from 'fs';
+import { inject, injectable } from 'tsyringe';
 
-import AppError from "../../../../../errors/AppError";
-import Category from "../../../models/Category";
-import { ICategoryRepository } from "../../../repositories/ICategoryRepository";
+import AppError from '../../../../../errors/AppError';
+import Category from '../../../models/Category';
+import { ICategoryRepository } from '../../../repositories/ICategoryRepository';
 
 interface ICategory {
   name: string;
@@ -20,7 +20,7 @@ interface IResponseDTO {
 @injectable()
 class ImportCategoriesService {
   constructor(
-    @inject("CategoryRepository")
+    @inject('CategoryRepository')
     private categoryRepository: ICategoryRepository
   ) {}
 
@@ -35,15 +35,15 @@ class ImportCategoriesService {
       stream.pipe(parsedFile);
 
       parsedFile
-        .on("data", async (line) => {
+        .on('data', async (line) => {
           const [name, description] = line;
           categories.push({ name, description });
         })
-        .on("end", () => {
+        .on('end', () => {
           fs.promises.unlink(file.path);
           resolve(categories);
         })
-        .on("error", (err) => {
+        .on('error', (err) => {
           fs.promises.unlink(file.path);
           reject(err);
         });
@@ -53,9 +53,9 @@ class ImportCategoriesService {
   async execute(file: Express.Multer.File): Promise<IResponseDTO> {
     const newCategories: Category[] = [];
 
-    if (file.mimetype !== "text/csv") {
+    if (file.mimetype !== 'text/csv') {
       fs.promises.unlink(file.path);
-      throw new AppError("Formato inválido, apenas CSV");
+      throw new AppError('Formato inválido, apenas CSV');
     }
 
     const categories = await this.loadCategories(file);

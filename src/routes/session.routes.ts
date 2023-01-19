@@ -1,10 +1,10 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-import { CreateSessionController } from "../modules/accounts/useCases/User/createSession/CreateSessionController";
+import { CreateSessionController } from '../modules/accounts/useCases/User/createSession/CreateSessionController';
 
 const sessionRoutes = Router();
 
 const createSessionController = new CreateSessionController();
-sessionRoutes.post("/", createSessionController.handle);
+sessionRoutes.post('/', createSessionController.handle);
 
 export { sessionRoutes };
