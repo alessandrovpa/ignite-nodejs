@@ -1,9 +1,10 @@
-import AppError from '@errors/AppError';
+import User from '@accounts/models/User';
 import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
+import AppError from '@shared/errors/AppError';
+
 import { ICreateUserDTO } from '../../../dtos/ICreateUserDTO';
-import User from '../../../models/User';
 import { IUserRepository } from '../../../repositories/IUserRepository';
 
 @injectable()
@@ -33,7 +34,6 @@ class CreateUserService {
       throw new AppError('Licença de motorista já cadastrada!');
 
     const hashedPassword = await hash(password, 8);
-
     const user = this.userRepository.create({
       name,
       email,

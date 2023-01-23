@@ -1,7 +1,6 @@
+import Category from '@car/models/Category';
+import { ICategoryRepository } from '@car/repositories/ICategoryRepository';
 import { inject, injectable } from 'tsyringe';
-
-import Category from '../../../models/Category';
-import { ICategoryRepository } from '../../../repositories/ICategoryRepository';
 
 @injectable()
 class ListCategoriesService {

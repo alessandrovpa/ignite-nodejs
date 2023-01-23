@@ -1,7 +1,8 @@
-import AppError from '@errors/AppError';
 import { compare } from 'bcrypt';
 import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
+
+import AppError from '@shared/errors/AppError';
 
 import { IUserRepository } from '../../../repositories/IUserRepository';
 
@@ -30,10 +31,10 @@ class CreateSessionService {
     }
 
     const user = await this.userRepository.findByEmail(email);
-    if (!user) throw new AppError('Email e/ou senha incorreta!');
+    if (!user) throw new AppError('Email e/ou senha incorreta1!');
 
     const isPasswordCorrect = await compare(password, user.password);
-    if (!isPasswordCorrect) throw new AppError('Email e/ou senha incorreta!');
+    if (!isPasswordCorrect) throw new AppError('Email e/ou senha incorreta2!');
 
     const token = sign({}, 'abc', {
       subject: user.id,

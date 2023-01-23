@@ -1,7 +1,8 @@
-import AppError from '@errors/AppError';
+import Specification from '@car/models/Specification';
 import { inject, injectable } from 'tsyringe';
 
-import Specification from '../../../models/Specification';
+import AppError from '@shared/errors/AppError';
+
 import { ISpecificationRepository } from '../../../repositories/ISpecificationRepository';
 
 interface ICreateSpecificationService {

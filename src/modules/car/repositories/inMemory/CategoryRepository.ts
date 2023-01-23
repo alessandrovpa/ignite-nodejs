@@ -1,4 +1,5 @@
-import Category from '../../models/Category';
+import Category from '@car/models/Category';
+
 import {
   ICategoryRepository,
   ICreateCategoryDTO,
@@ -12,11 +13,7 @@ class InMemoryCategoryRepository implements ICategoryRepository {
   }
 
   create({ name, description }: ICreateCategoryDTO): Category {
-    const category = new Category();
-    Object.assign(category, {
-      name,
-      description,
-    });
+    const category = new Category({ name, description });
 
     return category;
   }

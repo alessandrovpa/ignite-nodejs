@@ -6,7 +6,12 @@
     "module": "commonjs",
     "baseUrl": "./src",
     "paths": {
-      "@errors/*": ["errors/*"]
+      "@errors/*": ["errors/*"],
+      "@config/*": ["config/*"],
+      "@shared/*": ["shared/*"],
+      "@database/*": ["database/*"],
+      "@accounts/*": ["modules/accounts/*"],
+      "@car/*": ["modules/car/*"]
     },
     "resolveJsonModule": true,
     "outDir": "./dist",

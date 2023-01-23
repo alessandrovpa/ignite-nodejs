@@ -1,5 +1,6 @@
-import AppError from '@errors/AppError';
 import { IUserRepository } from 'modules/accounts/repositories/IUserRepository';
+
+import AppError from '@shared/errors/AppError';
 
 import { InMemoryUserRepository } from '../../../repositories/inMemory/UserRepository';
 import { CreateUserService } from './CreateUserService';

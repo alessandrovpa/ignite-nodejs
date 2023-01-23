@@ -1,7 +1,8 @@
+import Category from '@car/models/Category';
 import { inject, injectable } from 'tsyringe';
 
-import AppError from '../../../../../errors/AppError';
-import Category from '../../../models/Category';
+import AppError from '@shared/errors/AppError';
+
 import { ICategoryRepository } from '../../../repositories/ICategoryRepository';
 
 interface ICreateCategoryService {

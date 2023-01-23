@@ -1,33 +1,62 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  PrimaryColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { v4 as uuidv4 } from 'uuid';
+/* eslint-disable no-underscore-dangle */
+import { randomUUID } from 'crypto';
 
-@Entity('category')
-class Category {
-  @PrimaryColumn()
-  id: string;
-
-  @Column()
+interface ICategory {
   name: string;
-
-  @Column()
   description: string;
-
-  @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
+}
 
-  constructor() {
-    if (!this.id) {
-      this.id = uuidv4();
-    }
+interface ICreateCategory {
+  id?: string;
+  name: string;
+  description: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+class Category {
+  private _id: string;
+  private props: ICategory;
+
+  constructor(props: ICreateCategory) {
+    this._id = props.id ? props.id : randomUUID();
+    const createdAt = props.createdAt ? props.createdAt : new Date();
+    const updatedAt = props.updatedAt ? props.updatedAt : new Date();
+    this.props = {
+      createdAt,
+      updatedAt,
+      ...props,
+    };
+  }
+
+  public get id(): string {
+    return this._id;
+  }
+
+  public get name(): string {
+    return this.props.name;
+  }
+  public set name(name: string) {
+    this.props.name = name;
+    this.props.updatedAt = new Date();
+  }
+
+  public get description(): string {
+    return this.props.description;
+  }
+  public set description(description: string) {
+    this.props.description = description;
+    this.props.updatedAt = new Date();
+  }
+
+  public get updatedAt(): Date {
+    return this.props.updatedAt;
+  }
+
+  public get createdAt(): Date {
+    return this.props.createdAt;
   }
 }
 

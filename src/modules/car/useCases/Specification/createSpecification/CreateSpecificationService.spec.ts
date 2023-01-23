@@ -1,4 +1,4 @@
-import AppError from '@errors/AppError';
+import AppError from '@shared/errors/AppError';
 import { ISpecificationRepository } from 'modules/car/repositories/ISpecificationRepository';
 
 import { InMemorySpecificationRepository } from '../../../repositories/inMemory/SpecificationRepository';

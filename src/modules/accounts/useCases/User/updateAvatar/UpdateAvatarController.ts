@@ -1,4 +1,4 @@
-import AppError from '@errors/AppError';
+import AppError from '@shared/errors/AppError';
 import { Request, Response } from 'express';
 import fs from 'fs';
 import { container } from 'tsyringe';

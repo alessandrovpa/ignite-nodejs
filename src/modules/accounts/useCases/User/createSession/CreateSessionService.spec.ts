@@ -1,4 +1,4 @@
-import AppError from '@errors/AppError';
+import AppError from '@shared/errors/AppError';
 
 import { InMemoryUserRepository } from '../../../repositories/inMemory/UserRepository';
 import { IUserRepository } from '../../../repositories/IUserRepository';

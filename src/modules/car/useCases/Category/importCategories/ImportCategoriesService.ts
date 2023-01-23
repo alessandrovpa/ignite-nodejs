@@ -2,8 +2,9 @@ import { parse } from 'csv-parse';
 import * as fs from 'fs';
 import { inject, injectable } from 'tsyringe';
 
-import AppError from '../../../../../errors/AppError';
-import Category from '../../../models/Category';
+import AppError from '@shared/errors/AppError';
+
+import { Category } from '../../../models/Category';
 import { ICategoryRepository } from '../../../repositories/ICategoryRepository';
 
 interface ICategory {

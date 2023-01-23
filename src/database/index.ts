@@ -1,8 +1,7 @@
+import User from '@accounts/infra/typeorm/entities/User';
+import Category from '@car/infra/typeorm/entities/Category';
+import Specification from '@car/infra/typeorm/entities/Specification';
 import { DataSource } from 'typeorm';
-
-import User from '../modules/accounts/models/User';
-import Category from '../modules/car/models/Category';
-import Specification from '../modules/car/models/Specification';
 
 const appDataSource = new DataSource({
   type: 'postgres',

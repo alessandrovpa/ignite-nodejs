@@ -1,4 +1,5 @@
-import Specification from '../../models/Specification';
+import Specification from '@car/models/Specification';
+
 import {
   ICreateSpecificationDTO,
   ISpecificationRepository,
@@ -15,13 +16,7 @@ class InMemorySpecificationRepository implements ISpecificationRepository {
     name,
     description,
   }: ICreateSpecificationDTO): Promise<Specification> {
-    const specification = new Specification();
-    Object.assign(specification, {
-      name,
-      description,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+    const specification = new Specification({ name, description });
 
     this.specifications.push(specification);
 

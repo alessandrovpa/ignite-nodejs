@@ -1,6 +1,7 @@
-import AppError from '@errors/AppError';
 import fs from 'fs';
 import { inject, injectable } from 'tsyringe';
+
+import AppError from '@shared/errors/AppError';
 
 import User from '../../../models/User';
 import { IUserRepository } from '../../../repositories/IUserRepository';
