@@ -8,7 +8,8 @@
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli -d src/database",
     "migration:create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:create",
     "test": "jest",
-    "lint": "eslint --fix src --ext .ts"
+    "lint": "eslint --fix src --ext .ts",
+    "seed:admin": "ts-node-dev src/database/seed/admin.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

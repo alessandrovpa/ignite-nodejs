@@ -42,7 +42,7 @@ class User {
       avatar,
       ...props,
     };
-    // if (!props.id) this.hashPassword();
+    if (!props.id) this.hashPassword();
   }
 
   public get id(): string {
@@ -85,6 +85,9 @@ class User {
     this.props.updatedAt = new Date();
   }
 
+  get isAdmin(): boolean {
+    return this.props.isAdmin;
+  }
   public toggleAdmin(): void {
     this.props.isAdmin = !this.props.isAdmin;
   }

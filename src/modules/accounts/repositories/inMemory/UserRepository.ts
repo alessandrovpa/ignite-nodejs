@@ -1,6 +1,5 @@
 import User from '@accounts/models/User';
 
-import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUserRepository } from '../IUserRepository';
 
 class InMemoryUserRepository implements IUserRepository {
@@ -10,14 +9,8 @@ class InMemoryUserRepository implements IUserRepository {
     this.users = [];
   }
 
-  create({ name, email, password, driverLicence }: ICreateUserDTO): User {
-    const user = new User({ name, email, password, driverLicence });
-    return user;
-  }
-
-  async save(user: User): Promise<User> {
+  async save(user: User): Promise<void> {
     this.users.push(user);
-    return user;
   }
 
   async findById(id: string): Promise<User> {

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { ensureAdmin } from 'middlewares/ensureAdmin';
 import multer from 'multer';
 
 import uploadConfig from '../config/upload';
@@ -15,6 +16,7 @@ const listCategoriesController = new ListCategoriesController();
 categoryRoutes.get('/', listCategoriesController.handle);
 
 categoryRoutes.use(ensureAuthenticated);
+categoryRoutes.use(ensureAdmin);
 
 const createCategoryController = new CreateCategoryController();
 categoryRoutes.post('/', createCategoryController.handle);

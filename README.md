@@ -10,19 +10,19 @@
 
 **Regras de Negócio**
 
-[]O usuário responsável por este cadastro deve ser um administrador.
-[]Não deve ser possível cadastrar um carro com uma placa já cadastrada.
-[]Não deve ser possível alterar a placa de um carro cadastrado.
-[]Um carro deve ser cadastrado com disponibilidade por padrão.
+[V]O usuário responsável por este cadastro deve ser um administrador.
+[V]Não deve ser possível cadastrar um carro com uma placa já cadastrada.
+[V]Não deve ser possível alterar a placa de um carro cadastrado.
+[V]Um carro deve ser cadastrado com disponibilidade por padrão.
 
 ## Listagem de Carros
 
 **Requisitos Funcionais**
 
-[]Deve ser possível listar todos os carros disponíveis.
-[]Deve ser possível listar todos os carros disponíveis pelo nome da marca.
-[]Deve ser possível listar todos os carros disponíveis pelo nome da categoria.
-[]Deve ser possível listar todos os carros disponíveis pelo nome do carro.
+[V]Deve ser possível listar todos os carros disponíveis.
+[V]Deve ser possível listar todos os carros disponíveis pelo nome da marca.
+[V]Deve ser possível listar todos os carros disponíveis pelo nome da categoria.
+[V]Deve ser possível listar todos os carros disponíveis pelo nome do carro.
 
 **Requisitos não Funcionais**
 

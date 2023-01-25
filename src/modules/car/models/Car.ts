@@ -77,11 +77,11 @@ class Car {
     return this.props.available;
   }
   public rentCar(): void {
-    this.props.available = true;
+    this.props.available = false;
     this.update();
   }
   public unrentCar(): void {
-    this.props.available = false;
+    this.props.available = true;
     this.update();
   }
 
@@ -128,4 +128,4 @@ class Car {
   }
 }
 
-export { Car };
+export default Car;

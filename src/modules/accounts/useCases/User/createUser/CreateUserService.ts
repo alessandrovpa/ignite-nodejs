@@ -1,11 +1,16 @@
 import User from '@accounts/models/User';
-import { hash } from 'bcrypt';
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
-import { ICreateUserDTO } from '../../../dtos/ICreateUserDTO';
 import { IUserRepository } from '../../../repositories/IUserRepository';
+
+interface ICreateUserDTO {
+  name: string;
+  email: string;
+  password: string;
+  driverLicence: string;
+}
 
 @injectable()
 class CreateUserService {
@@ -33,11 +38,10 @@ class CreateUserService {
     if (verifyDriverLicenceAlreadyExist)
       throw new AppError('Licença de motorista já cadastrada!');
 
-    const hashedPassword = await hash(password, 8);
-    const user = this.userRepository.create({
+    const user = new User({
       name,
       email,
-      password: hashedPassword,
+      password,
       driverLicence,
     });
 
