@@ -1,9 +1,6 @@
 import Category from '@car/models/Category';
 
-import {
-  ICategoryRepository,
-  ICreateCategoryDTO,
-} from '../ICategoryRepository';
+import { ICategoryRepository } from '../ICategoryRepository';
 
 class InMemoryCategoryRepository implements ICategoryRepository {
   private categories: Category[];
@@ -12,30 +9,23 @@ class InMemoryCategoryRepository implements ICategoryRepository {
     this.categories = [];
   }
 
-  create({ name, description }: ICreateCategoryDTO): Category {
-    const category = new Category({ name, description });
-
-    return category;
-  }
-  async save(category: Category): Promise<Category> {
+  async save(category: Category): Promise<void> {
     this.categories.push(category);
-    return category;
   }
 
-  async saveMany(categories: Category[]): Promise<Category[]> {
+  async saveMany(categories: Category[]): Promise<void> {
     categories.forEach((category) => {
       this.categories.push(category);
     });
-
-    return categories;
   }
 
   async list(): Promise<Category[]> {
     return this.categories;
   }
 
-  async findByName(name: string): Promise<Category> {
+  async findByName(name: string): Promise<Category | null> {
     const category = this.categories.find((category) => category.name === name);
+    if (!category) return null;
     return category;
   }
 }

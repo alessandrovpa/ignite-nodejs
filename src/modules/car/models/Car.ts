@@ -1,5 +1,8 @@
 /* eslint-disable no-underscore-dangle */
+import Category from '@car/infra/typeorm/entities/Category';
 import { randomUUID } from 'crypto';
+
+import Specification from './Specification';
 
 interface ICar {
   name: string;
@@ -10,6 +13,8 @@ interface ICar {
   fineAmount: number;
   brand: string;
   categoryId: string;
+  specifications?: Specification[];
+  category?: Category;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -24,6 +29,8 @@ interface ICarConstructor {
   fineAmount: number;
   brand: string;
   categoryId: string;
+  category?: Category;
+  specifications?: Specification[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -114,6 +121,21 @@ class Car {
   }
   public set categoryId(categoryId: string) {
     this.props.categoryId = categoryId;
+    this.update();
+  }
+
+  public get category(): Category {
+    return this.props.category;
+  }
+  public set category(category: Category) {
+    this.props.category = category;
+  }
+
+  public get specifications(): Specification[] {
+    return this.props.specifications;
+  }
+  public set specifications(specifications: Specification[]) {
+    this.props.specifications = specifications;
     this.update();
   }
 

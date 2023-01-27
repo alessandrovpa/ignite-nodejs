@@ -1,5 +1,7 @@
-import AppError from '@shared/errors/AppError';
+import Specification from '@car/models/Specification';
 import { ISpecificationRepository } from 'modules/car/repositories/ISpecificationRepository';
+
+import AppError from '@shared/errors/AppError';
 
 import { InMemorySpecificationRepository } from '../../../repositories/inMemory/SpecificationRepository';
 import { CreateSpecificationService } from './CreateSpecificationService';
@@ -19,10 +21,12 @@ describe('Create specification service', () => {
   });
 
   it('should be able to create a new specification', async () => {
-    const specification = await createSpecificationService.execute({
+    const specification = new Specification({
       name,
       description,
     });
+
+    await specificationRepository.save(specification);
 
     expect(specification).toHaveProperty('id');
   });

@@ -1,4 +1,5 @@
 import { CreateCarController } from '@car/useCases/Car/createCar/CreateCarController';
+import { CreateCarSpecificationController } from '@car/useCases/Car/createCarSpecification/CreateCarSpecificationController';
 import { ListCarController } from '@car/useCases/Car/listAvailableCar/ListCarController';
 import { Router } from 'express';
 import { ensureAdmin } from 'middlewares/ensureAdmin';
@@ -14,5 +15,8 @@ carRoutes.use(ensureAdmin);
 
 const createCarController = new CreateCarController();
 carRoutes.post('/', createCarController.handle);
+
+const createCarSpecificationController = new CreateCarSpecificationController();
+carRoutes.post('/:id/specifications', createCarSpecificationController.handle);
 
 export { carRoutes };

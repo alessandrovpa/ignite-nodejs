@@ -1,10 +1,10 @@
+import Category from '@car/models/Category';
 import { parse } from 'csv-parse';
 import * as fs from 'fs';
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
-import { Category } from '../../../models/Category';
 import { ICategoryRepository } from '../../../repositories/ICategoryRepository';
 
 interface ICategory {
@@ -69,7 +69,7 @@ class ImportCategoriesService {
           // eslint-disable-next-line no-await-in-loop
           await this.categoryRepository.findByName(name);
         if (!verifyCategoryAlreadiExist) {
-          const newCategory = this.categoryRepository.create({
+          const newCategory = new Category({
             name,
             description,
           });

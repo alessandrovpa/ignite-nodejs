@@ -30,10 +30,11 @@ class CreateCategoryService {
       throw new AppError('Categoria já cadastrada!');
     }
 
-    const category = this.categoryRepository.create({
+    const category = new Category({
       name,
       description,
     });
+
     await this.categoryRepository.save(category);
 
     return category;

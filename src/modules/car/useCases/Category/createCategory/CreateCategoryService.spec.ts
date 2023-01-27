@@ -1,3 +1,5 @@
+import Category from '@car/models/Category';
+
 import AppError from '@shared/errors/AppError';
 
 import { ICategoryRepository } from '../../../repositories/ICategoryRepository';
@@ -19,16 +21,17 @@ describe('Create category service', () => {
   });
 
   it('should be able to create a new category', async () => {
-    const category = await createCategoryService.execute({
+    const category = new Category({
       name: categoryProps.name,
       description: categoryProps.description,
     });
+
+    await categoryRepository.save(category);
 
     expect(category).toHaveProperty('id');
   });
 
   it('should not be able to create a new category with an repeated name', async () => {
-    // Category with "category" name already created in test 1
     await expect(async () => {
       await createCategoryService.execute({
         name: categoryProps.name,

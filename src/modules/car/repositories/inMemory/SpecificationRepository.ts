@@ -1,9 +1,6 @@
 import Specification from '@car/models/Specification';
 
-import {
-  ICreateSpecificationDTO,
-  ISpecificationRepository,
-} from '../ISpecificationRepository';
+import { ISpecificationRepository } from '../ISpecificationRepository';
 
 class InMemorySpecificationRepository implements ISpecificationRepository {
   private specifications: Specification[];
@@ -12,26 +9,42 @@ class InMemorySpecificationRepository implements ISpecificationRepository {
     this.specifications = [];
   }
 
-  async create({
-    name,
-    description,
-  }: ICreateSpecificationDTO): Promise<Specification> {
-    const specification = new Specification({ name, description });
-
+  async save(specification: Specification): Promise<void> {
     this.specifications.push(specification);
+  }
 
-    return specification;
+  async saveMany(specifications: Specification[]): Promise<void> {
+    specifications.forEach((specification) => {
+      this.specifications.push(specification);
+    });
   }
 
   async list(): Promise<Specification[]> {
     return this.specifications;
   }
 
-  async findByName(name: string): Promise<Specification> {
+  async findByName(name: string): Promise<Specification | null> {
     const specification = this.specifications.find(
       (specification) => specification.name === name
     );
+    if (!specification) return null;
     return specification;
+  }
+
+  async findById(id: string): Promise<Specification | null> {
+    const specification = this.specifications.find(
+      (specification) => specification.id === id
+    );
+    if (!specification) return null;
+    return specification;
+  }
+
+  async findByIds(ids: string[]): Promise<Specification[]> {
+    const specifications = this.specifications.filter((specification) =>
+      ids.includes(specification.id)
+    );
+
+    return specifications;
   }
 }
 

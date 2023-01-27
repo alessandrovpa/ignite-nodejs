@@ -27,6 +27,18 @@ class CarRepository implements ICarRepository {
     return cars;
   }
 
+  async findById(id: string): Promise<Car | null> {
+    const car = await this.carRepository.findOne({
+      where: { id },
+      relations: {
+        specifications: true,
+        category: true,
+      },
+    });
+    if (!car) return null;
+    return CarMapper.toModel(car);
+  }
+
   async findByLicencePlate(licencePlate: string): Promise<Car | null> {
     const car = await this.carRepository.findOne({
       where: {

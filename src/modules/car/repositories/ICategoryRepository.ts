@@ -6,11 +6,10 @@ interface ICreateCategoryDTO {
 }
 
 interface ICategoryRepository {
-  create({ name, description }: ICreateCategoryDTO): Category;
-  save(category: Category): Promise<Category>;
-  saveMany(categories: Category[]): Promise<Category[]>;
+  save(category: Category): Promise<void>;
+  saveMany(categories: Category[]): Promise<void>;
   list(): Promise<Category[]>;
-  findByName(name: string): Promise<Category>;
+  findByName(name: string): Promise<Category | null>;
 }
 
 export { ICategoryRepository, ICreateCategoryDTO };

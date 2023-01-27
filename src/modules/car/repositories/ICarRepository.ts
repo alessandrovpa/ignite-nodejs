@@ -9,6 +9,7 @@ interface IListCategoryFilters {
 interface ICarRepository {
   save(car: Car): Promise<void>;
   list(): Promise<Car[]>;
+  findById(id: string): Promise<Car | null>;
   findByLicencePlate(licencePlate: string): Promise<Car | null>;
   listAvailablesCars(filters: IListCategoryFilters): Promise<Car[]>;
 }

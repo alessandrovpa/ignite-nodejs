@@ -24,17 +24,20 @@ class CreateSpecificationService {
     if (!name || !description) {
       throw new AppError('Preencha todos os campos!');
     }
-    const existeSpecification = await this.specificationRepository.findByName(
+
+    const existSpecification = await this.specificationRepository.findByName(
       name
     );
-    if (existeSpecification) {
+    if (existSpecification) {
       throw new AppError('Especificação já cadastrada!');
     }
 
-    const specification = await this.specificationRepository.create({
+    const specification = new Specification({
       name,
       description,
     });
+
+    await this.specificationRepository.save(specification);
 
     return specification;
   }

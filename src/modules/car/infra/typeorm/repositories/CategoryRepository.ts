@@ -1,50 +1,51 @@
-import {
-  ICategoryRepository,
-  ICreateCategoryDTO,
-} from '@car/repositories/ICategoryRepository';
+import Category from '@car/models/Category';
+import { ICategoryRepository } from '@car/repositories/ICategoryRepository';
 import { appDataSource } from '@database/index';
 import { Repository } from 'typeorm';
 
-import Category from '../entities/Category';
+import TypeOrmCategory from '../entities/Category';
+import { CategoryMapper } from '../mapper/CategoryMapper';
 
 class CategoryRepository implements ICategoryRepository {
-  private repository: Repository<Category>;
+  private repository: Repository<TypeOrmCategory>;
 
   constructor() {
-    this.repository = appDataSource.getRepository(Category);
+    this.repository = appDataSource.getRepository(TypeOrmCategory);
   }
 
-  create({ name, description }: ICreateCategoryDTO): Category {
-    const category = this.repository.create({
-      name,
-      description,
-    });
-
-    return category;
+  async save(category: Category): Promise<void> {
+    await this.repository.save(CategoryMapper.toTypeORM(category));
   }
 
-  async save(category: Category): Promise<Category> {
-    await this.repository.save(category);
-    return category;
-  }
-
-  async saveMany(categories: Category[]): Promise<Category[]> {
-    await this.repository.save(categories);
-    return categories;
+  async saveMany(categories: Category[]): Promise<void> {
+    const typeOrmCategories: TypeOrmCategory[] = [];
+    categories.forEach((category) =>
+      typeOrmCategories.push(CategoryMapper.toTypeORM(category))
+    );
+    await this.repository.save(typeOrmCategories);
   }
 
   async list(): Promise<Category[]> {
-    const categories = await this.repository.find();
+    const categories: Category[] = [];
+
+    const typeOrmCategories = await this.repository.find();
+
+    typeOrmCategories.forEach((category) =>
+      categories.push(CategoryMapper.toModel(category))
+    );
+
     return categories;
   }
 
-  async findByName(name: string): Promise<Category> {
+  async findByName(name: string): Promise<Category | null> {
     const category = await this.repository
       .createQueryBuilder()
       .where('LOWER(name) = LOWER(:name)', { name })
       .getOne();
 
-    return category;
+    if (!category) return null;
+
+    return CategoryMapper.toModel(category);
   }
 }
 

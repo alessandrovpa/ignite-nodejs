@@ -28,7 +28,7 @@
 
 **Regras de Negócio**
 
-[]O usuário não precisa estar autenticado para listar os carros.
+[V]O usuário não precisa estar autenticado para listar os carros.
 
 ## Cadastro de especificação do carro
 

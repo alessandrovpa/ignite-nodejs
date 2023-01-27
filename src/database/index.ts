@@ -14,6 +14,7 @@ const appDataSource = new DataSource({
   database: 'ignite',
   entities: [Category, Specification, User, Car],
   migrations: ['./src/database/migrations/*.ts'],
+  // logging: true,
 });
 
 appDataSource

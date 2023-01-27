@@ -33,6 +33,12 @@ class InMemoryCarRepository implements ICarRepository {
     return this.cars;
   }
 
+  async findById(id: string): Promise<Car | null> {
+    const car = this.cars.find((car) => car.id === id);
+    if (!car) return null;
+    return car;
+  }
+
   async findByLicencePlate(licencePlate: string): Promise<Car> {
     const car = this.cars.find((car) => car.licencePlate === licencePlate);
     if (!car) return null;
