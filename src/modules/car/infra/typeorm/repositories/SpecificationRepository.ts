@@ -17,6 +17,15 @@ class SpecificationRepository implements ISpecificationRepository {
     await this.repository.save(SpecificationMapper.toTypeORM(specification));
   }
 
+  async saveMany(specifications: Specification[]): Promise<void> {
+    const typeOrmSpecifications: TypeOrmSpecification[] = [];
+    specifications.forEach((specification) => {
+      typeOrmSpecifications.push(SpecificationMapper.toTypeORM(specification));
+    });
+
+    await this.repository.save(typeOrmSpecifications);
+  }
+
   async list(): Promise<Specification[]> {
     const specifications: Specification[] = [];
 
@@ -26,15 +35,6 @@ class SpecificationRepository implements ISpecificationRepository {
     });
 
     return specifications;
-  }
-
-  async saveMany(specifications: Specification[]): Promise<void> {
-    const typeOrmSpecifications: TypeOrmSpecification[] = [];
-    specifications.forEach((specification) => {
-      typeOrmSpecifications.push(SpecificationMapper.toTypeORM(specification));
-    });
-
-    await this.repository.save(typeOrmSpecifications);
   }
 
   async findByName(name: string): Promise<Specification | null> {

@@ -22,8 +22,10 @@ class CreateCarSpecificationService {
     const car = await this.carRepository.findById(carId);
     if (!car) throw new AppError('Carro não cadastrado!');
 
+    const filteredSpecificartions = Array.from(new Set(specificationsId));
+
     const specifications = await this.specificationRepository.findByIds(
-      specificationsId
+      filteredSpecificartions
     );
 
     car.specifications = specifications;

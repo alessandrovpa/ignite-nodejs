@@ -24,6 +24,9 @@ describe('Create Car Specification Service', () => {
     categoryId: 'category-id',
   };
 
+  const specificationsId: string[] = [];
+  let carId = '';
+
   beforeAll(() => {
     carRepository = new InMemoryCarRepository();
     specificationRepository = new InMemorySpecificationRepository();
@@ -33,8 +36,7 @@ describe('Create Car Specification Service', () => {
     );
   });
 
-  it('should be able to add a new specification to an registred car', async () => {
-    const specificationsId: string[] = [];
+  it('should be able to add a new specification to an registered car', async () => {
     const car = new Car({
       name: carFields.name,
       description: carFields.description,
@@ -45,6 +47,7 @@ describe('Create Car Specification Service', () => {
       categoryId: carFields.categoryId,
     });
     await carRepository.save(car);
+    carId = car.id;
 
     let specification = new Specification({
       name: 'specification1',
@@ -61,22 +64,38 @@ describe('Create Car Specification Service', () => {
     await specificationRepository.save(specification);
 
     await createCarSpecificationService.execute({
-      carId: car.id,
+      carId,
       specificationsId,
     });
 
-    const verifyCar = await carRepository.findById(car.id);
+    const verifyCar = await carRepository.findById(carId);
 
     expect(verifyCar).toHaveProperty(['specifications']);
     expect(verifyCar.specifications).toHaveLength(2);
   });
 
-  it('should not be able to add a new specification to a non existent car', async () => {
+  it('should not be able to add a new specification to an unregistered car', async () => {
     await expect(async () => {
       await createCarSpecificationService.execute({
         carId: 'non-exist',
         specificationsId: ['abc'],
       });
     }).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to add an duplicated specification to an registered car', async () => {
+    specificationsId.push(specificationsId[0]);
+
+    expect(specificationsId).toHaveLength(3);
+
+    await createCarSpecificationService.execute({
+      carId,
+      specificationsId,
+    });
+
+    const verifyCar = await carRepository.findById(carId);
+
+    expect(verifyCar).toHaveProperty(['specifications']);
+    expect(verifyCar.specifications).toHaveLength(2);
   });
 });

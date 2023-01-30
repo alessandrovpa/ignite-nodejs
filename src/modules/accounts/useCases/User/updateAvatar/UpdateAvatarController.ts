@@ -1,7 +1,8 @@
-import AppError from '@shared/errors/AppError';
 import { Request, Response } from 'express';
-import fs from 'fs';
+import fs from 'node:fs';
 import { container } from 'tsyringe';
+
+import AppError from '@shared/errors/AppError';
 
 import { UpdateAvatarService } from './UpdateAvatarService';
 

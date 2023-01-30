@@ -1,4 +1,4 @@
-import fs from 'fs';
+import fs from 'node:fs';
 import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
