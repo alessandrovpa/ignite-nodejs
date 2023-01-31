@@ -5,7 +5,7 @@ import { CreateUserService } from './CreateUserService';
 
 class CreateUserController {
   async handle(req: Request, res: Response): Promise<Response> {
-    const { name, email, password, driverLicence } = req.body;
+    const { name, email, password, driver_licence } = req.body;
 
     const createUserService = container.resolve(CreateUserService);
 
@@ -13,7 +13,7 @@ class CreateUserController {
       name,
       email,
       password,
-      driverLicence,
+      driverLicence: driver_licence,
     });
 
     return res.status(201).json(user);

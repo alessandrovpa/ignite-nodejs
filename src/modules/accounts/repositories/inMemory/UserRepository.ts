@@ -25,7 +25,7 @@ class InMemoryUserRepository implements IUserRepository {
 
   async findByDriverLicence(driverLicence: string): Promise<User> {
     const user = this.users.find(
-      (user) => user.driverLicense === driverLicence
+      (user) => user.driverLicence === driverLicence
     );
     return user;
   }

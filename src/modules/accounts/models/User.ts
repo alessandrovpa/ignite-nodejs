@@ -77,11 +77,11 @@ class User {
     this.props.password = hashSync(this.props.password, 8);
   }
 
-  public get driverLicense(): string {
+  public get driverLicence(): string {
     return this.props.driverLicence;
   }
-  public set driverLicense(driverLicense: string) {
-    this.props.driverLicence = driverLicense;
+  public set driverLicence(driverLicence: string) {
+    this.props.driverLicence = driverLicence;
     this.props.updatedAt = new Date();
   }
 

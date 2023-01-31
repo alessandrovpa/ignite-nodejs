@@ -8,22 +8,22 @@ class CreateCarController {
     const {
       name,
       description,
-      dailyRate,
-      licencePlate,
-      fineAmount,
+      daily_rate,
+      licence_plate,
+      fine_amount,
       brand,
-      categoryId,
+      category_id,
     } = req.body;
     const createCarService = container.resolve(CreateCarService);
 
     const car = await createCarService.execute({
       name,
       description,
-      dailyRate,
-      licencePlate,
-      fineAmount,
+      dailyRate: daily_rate,
+      licencePlate: licence_plate,
+      fineAmount: fine_amount,
       brand,
-      categoryId,
+      categoryId: category_id,
     });
 
     return res.status(201).json(car);

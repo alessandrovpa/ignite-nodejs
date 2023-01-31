@@ -26,7 +26,7 @@ describe('User Model', () => {
       name: user.name,
       email: user.email,
       password: user.password,
-      driverLicence: user.driverLicense,
+      driverLicence: user.driverLicence,
       id: user.id,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,

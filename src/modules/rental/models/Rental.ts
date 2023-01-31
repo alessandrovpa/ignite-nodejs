@@ -1,9 +1,13 @@
 /* eslint-disable no-underscore-dangle */
+import User from '@accounts/models/User';
+import Car from '@car/models/Car';
 import { randomUUID } from 'crypto';
 
 interface IRental {
   carId: string;
+  car?: Car;
   userId: string;
+  user?: User;
   startDate: Date;
   endDate: Date | null;
   total?: number;
@@ -54,8 +58,22 @@ class Rental {
     this.props.updatedAt = new Date();
   }
 
+  public get car(): Car {
+    return this.props.car;
+  }
+  public set car(car: Car) {
+    this.props.car = car;
+  }
+
   public get userId(): string {
     return this.props.userId;
+  }
+
+  public get user(): User {
+    return this.props.user;
+  }
+  public set user(user: User) {
+    this.props.user = user;
   }
 
   public get startDate(): Date {

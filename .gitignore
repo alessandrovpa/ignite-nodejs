@@ -12,3 +12,5 @@ tmp/avatar/*
 !tmp/car
 tmp/car/*
 !tmp/car/.gitkeep
+
+coverage

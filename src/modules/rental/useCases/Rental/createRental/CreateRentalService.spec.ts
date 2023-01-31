@@ -7,6 +7,8 @@ import { InMemoryCarRepository } from '@car/repositories/inMemory/CarRepository'
 import { InMemoryRentalRepository } from '@rental/repositories/inMemory/RentalRepository';
 import { IRentalRepository } from '@rental/repositories/IRentalRepository';
 
+import { IDateProvider } from '@shared/container/providers/DateProvider/IDateProvider';
+import { DayjsProvider } from '@shared/container/providers/DateProvider/implementations/Dayjs';
 import AppError from '@shared/errors/AppError';
 
 import { CreateRentalService } from './CreateRentalService';
@@ -15,8 +17,11 @@ let createRentalService: CreateRentalService;
 let rentalRepository: IRentalRepository;
 let userRepository: IUserRepository;
 let carRepository: ICarRepository;
+let dateProvider: IDateProvider;
 
 describe('Create Rental Service', () => {
+  const datePlus24Hours = new Date();
+  datePlus24Hours.setDate(datePlus24Hours.getDate() + 1);
   let userId: string;
   let carId: string;
 
@@ -24,10 +29,12 @@ describe('Create Rental Service', () => {
     rentalRepository = new InMemoryRentalRepository();
     userRepository = new InMemoryUserRepository();
     carRepository = new InMemoryCarRepository();
+    dateProvider = new DayjsProvider();
     createRentalService = new CreateRentalService(
       rentalRepository,
       carRepository,
-      userRepository
+      userRepository,
+      dateProvider
     );
   });
 
@@ -56,7 +63,7 @@ describe('Create Rental Service', () => {
     const rental = await createRentalService.execute({
       carId,
       userId,
-      expectedReturnDate: new Date(),
+      expectedReturnDate: datePlus24Hours,
     });
 
     await rentalRepository.save(rental);
@@ -66,12 +73,22 @@ describe('Create Rental Service', () => {
     expect(rentals).toHaveLength(1);
   });
 
+  it('should not be able to rent an car whith less than 24 hours of duration', async () => {
+    await expect(async () => {
+      await createRentalService.execute({
+        carId,
+        userId,
+        expectedReturnDate: new Date(),
+      });
+    }).rejects.toBeInstanceOf(AppError);
+  });
+
   it('should not be able to rent an unregistered car', async () => {
     await expect(async () => {
       await createRentalService.execute({
         carId: 'unregistered',
         userId,
-        expectedReturnDate: new Date(),
+        expectedReturnDate: datePlus24Hours,
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -81,7 +98,7 @@ describe('Create Rental Service', () => {
       await createRentalService.execute({
         carId,
         userId: 'unregistered',
-        expectedReturnDate: new Date(),
+        expectedReturnDate: datePlus24Hours,
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -99,7 +116,7 @@ describe('Create Rental Service', () => {
       await createRentalService.execute({
         carId,
         userId: user.id,
-        expectedReturnDate: new Date(),
+        expectedReturnDate: datePlus24Hours,
       });
     }).rejects.toBeInstanceOf(AppError);
   });
@@ -120,7 +137,7 @@ describe('Create Rental Service', () => {
       await createRentalService.execute({
         carId: car.id,
         userId,
-        expectedReturnDate: new Date(),
+        expectedReturnDate: datePlus24Hours,
       });
     }).rejects.toBeInstanceOf(AppError);
   });
