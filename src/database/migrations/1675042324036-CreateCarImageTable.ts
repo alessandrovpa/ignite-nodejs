@@ -9,6 +9,8 @@ export class CreateCarImageTable1675042324036 implements MigrationInterface {
           {
             name: 'id',
             type: 'varchar',
+            isPrimary: true,
+            isUnique: true,
             isNullable: false,
           },
           {

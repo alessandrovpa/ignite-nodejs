@@ -11,7 +11,8 @@
       "@shared/*": ["shared/*"],
       "@database/*": ["database/*"],
       "@accounts/*": ["modules/accounts/*"],
-      "@car/*": ["modules/car/*"]
+      "@car/*": ["modules/car/*"],
+      "@rental/*": ["modules/rental/*"]
     },
     "resolveJsonModule": true,
     "outDir": "./dist",

@@ -11,7 +11,6 @@ export class CreateSpecificationTable1670530280977
           {
             name: 'id',
             type: 'varchar',
-            generationStrategy: 'uuid',
             isPrimary: true,
             isUnique: true,
             isNullable: false,

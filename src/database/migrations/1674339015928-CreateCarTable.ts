@@ -9,7 +9,6 @@ export class CreateCarTable1674339015928 implements MigrationInterface {
           {
             name: 'id',
             type: 'varchar',
-            generationStrategy: 'uuid',
             isPrimary: true,
             isUnique: true,
             isNullable: false,

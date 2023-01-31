@@ -9,7 +9,6 @@ export class CreateCategoryTable1670433125106 implements MigrationInterface {
           {
             name: 'id',
             type: 'varchar',
-            generationStrategy: 'uuid',
             isPrimary: true,
             isUnique: true,
             isNullable: false,
