@@ -1,12 +1,25 @@
 import { hashSync } from 'bcrypt';
 import { randomUUID } from 'crypto';
+import dotenv from 'dotenv';
+import { DataSource, Repository } from 'typeorm';
 
 import User from '../../modules/accounts/infra/typeorm/entities/User';
 import { appDataSource } from '../index';
 
-async function create() {
-  await appDataSource.initialize();
-  const userRepository = appDataSource.getRepository(User);
+dotenv.config();
+
+async function createAdmin(dataSource?: DataSource): Promise<void> {
+  let userRepository: Repository<User>;
+
+  if (process.env.NODE_ENV !== 'test') {
+    await appDataSource.initialize();
+  }
+
+  if (dataSource) {
+    userRepository = dataSource.getRepository(User);
+  } else {
+    userRepository = appDataSource.getRepository(User);
+  }
 
   const user = userRepository.create({
     id: randomUUID(),
@@ -18,10 +31,10 @@ async function create() {
   });
 
   await userRepository.save(user);
+
+  if (process.env.NODE_ENV !== 'test') {
+    await appDataSource.destroy();
+  }
 }
 
-create()
-  .catch((err) => console.log(err))
-  .then(() => {
-    console.log('User admin created!');
-  });
+export { createAdmin };

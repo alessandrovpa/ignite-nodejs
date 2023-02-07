@@ -60,13 +60,11 @@ describe('Create Rental Service', () => {
     await carRepository.save(car);
     carId = car.id;
 
-    const rental = await createRentalService.execute({
+    await createRentalService.execute({
       carId,
       userId,
       expectedReturnDate: datePlus24Hours,
     });
-
-    await rentalRepository.save(rental);
 
     const rentals = await rentalRepository.list();
 

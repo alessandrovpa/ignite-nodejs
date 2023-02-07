@@ -6,6 +6,7 @@
     "module": "commonjs",
     "baseUrl": "./src",
     "paths": {
+      "@app/*": ["*"],
       "@errors/*": ["errors/*"],
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],

@@ -1,5 +1,3 @@
-import User from '@accounts/infra/typeorm/entities/User';
-import Car from '@car/infra/typeorm/entities/Car';
 import {
   Column,
   CreateDateColumn,
@@ -9,6 +7,9 @@ import {
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
+
+import User from '../../../../accounts/infra/typeorm/entities/User';
+import Car from '../../../../car/infra/typeorm/entities/Car';
 
 @Entity('rental')
 class Rental {

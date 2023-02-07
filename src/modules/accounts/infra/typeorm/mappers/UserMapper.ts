@@ -11,7 +11,7 @@ class UserMapper {
       avatar: user.avatar,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
-      driverLicence: user.driverLicense,
+      driverLicence: user.driverLicence,
       email: user.email,
       password: user.password,
       id: user.id,

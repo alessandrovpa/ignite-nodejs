@@ -4,9 +4,10 @@ import { ListCarController } from '@car/useCases/Car/listAvailableCar/ListCarCon
 import { UploadCarImagecontroller } from '@car/useCases/Car/uploadImageCar/UploadCarImageController';
 import uploadConfig from '@config/upload';
 import { Router } from 'express';
-import { ensureAdmin } from 'middlewares/ensureAdmin';
-import { ensureAuthenticated } from 'middlewares/ensureAuthenticated';
 import multer from 'multer';
+
+import { ensureAdmin } from '../middlewares/ensureAdmin';
+import { ensureAuthenticated } from '../middlewares/ensureAuthenticated';
 
 const carRoutes = Router();
 
