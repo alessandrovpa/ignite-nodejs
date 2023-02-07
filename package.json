@@ -7,7 +7,7 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli -d src/database",
     "migration:create": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:create",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --runInBand",
     "lint": "eslint --fix src --ext .ts",
     "seed:admin": "ts-node-dev src/database/seed/index.ts"
   },

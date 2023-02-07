@@ -6,7 +6,7 @@ import { DataSource } from 'typeorm';
 
 let dataSource: DataSource;
 
-describe('Create Specification Controller', () => {
+describe('List Specification Controller', () => {
   let token: string;
   beforeAll(async () => {
     dataSource = await appDataSource.initialize();
@@ -25,8 +25,11 @@ describe('Create Specification Controller', () => {
     await dataSource.destroy();
   });
 
-  it('should be able to create a new specification', async () => {
-    const res = await request(app)
+  it('should be able to list all specifications', async () => {
+    let res = await request(app).get('/specification');
+    expect(res.body).toHaveLength(0);
+
+    await request(app)
       .post('/specification')
       .send({
         name: 'supertest',
@@ -36,20 +39,7 @@ describe('Create Specification Controller', () => {
         Authorization: `Bearer ${token}`,
       });
 
-    expect(res.status).toBe(201);
-  });
-
-  it('should not be able to create a new specification with same name', async () => {
-    const res = await request(app)
-      .post('/specification')
-      .send({
-        name: 'supertest',
-        description: 'description',
-      })
-      .set({
-        Authorization: `Bearer ${token}`,
-      });
-
-    expect(res.status).toBe(400);
+    res = await request(app).get('/specification');
+    expect(res.body).toHaveLength(1);
   });
 });

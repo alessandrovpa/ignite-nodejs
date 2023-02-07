@@ -6,7 +6,7 @@ import { compilerOptions } from './tsconfig.json';
 
 const config: Config = {
   moduleFileExtensions: ['js', 'json', 'ts'],
-  testRegex: 'Controller.*\\.spec\\.ts$',
+  testRegex: '.*\\.spec\\.ts$',
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest',
   },
